@@ -8,9 +8,14 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.CharsetUtil;
+import org.slf4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TaskQueueServer {
     public static final int PORT = 6668;
+
+    public static final Logger logger = LoggerFactory.getLogger(TaskQueueServer.class);
 
     public static void main(String[] args) throws InterruptedException {
         NioEventLoopGroup bossGroup = new NioEventLoopGroup();//boss线程组
@@ -28,7 +33,8 @@ public class TaskQueueServer {
                         }
                     });
 
-            System.out.println("启动服务 port : " + PORT + " ...");
+            logger.debug("启动服务 port : %d ..." , PORT);
+            //System.out.println("启动服务 port : " + PORT + " ...");
             //绑定端口  启动服务
             ChannelFuture cf = bootstrap.bind(PORT).sync();
 
